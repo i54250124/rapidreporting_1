@@ -1,4 +1,5 @@
 <?php
+
 // 数据库连接类
 class DB{
   //私有的属性
@@ -10,6 +11,7 @@ class DB{
   private $db;
   private $charset;
   private $link;
+  
   //私有的构造方法
   private function __construct(){
     $this->host =  'localhost';
@@ -25,6 +27,8 @@ class DB{
     //设置字符集
     $this->db_charset();
    }
+   
+   
    //连接数据库
    private function db_connect(){
     $this->link=mysqli_connect($this->host.':'.$this->port,$this->user,$this->pass);
@@ -35,18 +39,26 @@ class DB{
       exit;
     }
    }
+   
+   
    //设置字符集
     private function db_charset(){
      mysqli_query($this->link,"set names {$this->charset}");
     }
+	
+	
     //选择数据库
    private function db_usedb(){
      mysqli_query($this->link,"use {$this->db}");
    }
+   
+   
    //私有的克隆
    private function __clone(){
      die('clone is not allowed');
    }
+   
+   
    //公用的静态方法
    public static function getIntance(){
      if(self::$dbcon==false){
@@ -54,6 +66,8 @@ class DB{
      }
      return self::$dbcon;
    }
+   
+   
    //执行sql语句的方法
     public function query($sql){
      $res=mysqli_query($this->link,$sql);
@@ -64,10 +78,14 @@ class DB{
      }
      return $res;
    }
+   
+   
     //获得最后一条记录id
     public function getInsertid(){
      return mysqli_insert_id($this->link);
     }
+	
+	
    /**
     * 查询某个字段
     * @param
@@ -77,6 +95,8 @@ class DB{
      $query=$this->query($sql);
       return mysqli_free_result($query);
     }
+	
+	
     //获取一行记录,return array 一维数组
     public function getRow($sql,$type="assoc"){
      $query=$this->query($sql);
@@ -86,6 +106,8 @@ class DB{
      $funcname="mysqli_fetch_".$type;
      return $funcname($query);
     }
+	
+	
     //获取一条记录,前置条件通过资源获取一条记录
     public function getFormSource($query,$type="assoc"){
     if(!in_array($type,array("assoc","array","row")))
@@ -95,6 +117,8 @@ class DB{
     $funcname="mysqli_fetch_".$type;
     return $funcname($query);
     }
+	
+	
     //获取多条数据，二维数组
     public function getAll($sql){
      $query=$this->query($sql);
@@ -129,6 +153,8 @@ class DB{
               }
               return $list;
     }
+	
+	
      /**
      * 定义添加数据的方法
      * @param string $table 表名
@@ -155,6 +181,8 @@ class DB{
     //返回上一次增加操做产生ID值
      return $this->getInsertid();
    }
+   
+   
    /*
     * 删除一条数据方法
     * @param1 $table, $where=array('id'=>'1') 表名 条件
@@ -173,6 +201,8 @@ class DB{
       //返回受影响的行数
       return mysqli_affected_rows($this->link);
     }
+	
+	
     /*
     * 删除多条数据方法
     * @param1 $table, $where 表名 条件
@@ -195,6 +225,8 @@ class DB{
       //返回受影响的行数
       return mysqli_affected_rows($this->link);
     }
+	
+	
    /**
     * [修改操作description]
     * @param [type] $table [表名]

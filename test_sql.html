@@ -7,11 +7,32 @@
 
 <body>
 
-<form action="test_sql.php" method="GET">
-YOUR ID:<input name="id" type="text" />
-<br />
-<input type="submit" value="提交" />
-</form>
+<h1>地震破坏力速报网页版（测试第一版）</h1>
+<hr/>
+
+
+<div>
+	<small>
+    第一版测试版网页使用说明<br>
+    1.只考虑上传一个.txt文件<br>
+	2.不使用ajax等异步手段<br>
+    <hr/>
+	</small>
+    </div>
+    
+    <h2>上传地震动</h2>
+    
+    <div>
+        	<label>EW方向</label>        
+			<form action="test_sql.php" method="post" enctype="multipart/form-data">
+			<label for="file">文件：</label>
+			<br />
+			<input type="file" name="up_file" />
+			<br />
+			<input type="submit" name="submit" value="提交" />
+			</form> 
+            
+    </div>
 
 </body>
 </html>
